@@ -22,7 +22,7 @@ import observer.IObserver;
  *
  * @author davif
  */
-public class ViewGame extends javax.swing.JFrame implements IObserver{
+public class ViewGame extends javax.swing.JFrame implements IObserver {
 
     private JButton[][] botoes;
     private TabuleiroController tabuleiroController;
@@ -57,9 +57,7 @@ public class ViewGame extends javax.swing.JFrame implements IObserver{
     }
 
     public void notificaInicioJogo(){
-        this.resetPainel();
-        
-        this.onBuildTabuleiro(tabuleiroPainel);
+        this.recarregarPainelTabuleiro();
 
         add(tabuleiroPainel, BorderLayout.CENTER);
     }
@@ -119,20 +117,22 @@ public class ViewGame extends javax.swing.JFrame implements IObserver{
     }
     
     public void notificaFinalizarJogada(){
-        this.resetPainel();
-        this.onBuildTabuleiro(this.tabuleiroPainel);
+        this.recarregarPainelTabuleiro();
     }
     
     public void notificaVitoriaJogo(){
+        this.recarregarPainelTabuleiro();
         JOptionPane.showMessageDialog(rootPane, "Parabéns, você ganhou!");
-        
-        this.tabuleiroController.iniciarJogo();
     }
     
     public void notificaDerrotaJogo(){
+        this.recarregarPainelTabuleiro();
         JOptionPane.showMessageDialog(rootPane, "Você perdeu!");
-        
-        this.tabuleiroController.iniciarJogo();
+    }
+    
+    private void recarregarPainelTabuleiro() {
+        this.resetPainel();
+        this.onBuildTabuleiro(this.tabuleiroPainel);
     }
     
     public void resetPainel(){
@@ -141,7 +141,6 @@ public class ViewGame extends javax.swing.JFrame implements IObserver{
         this.tabuleiroPainel.repaint();
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
